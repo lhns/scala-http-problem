@@ -76,10 +76,10 @@ lazy val core = projectMatrix
   .settings(
     name := "scala-http-problem",
     libraryDependencies ++= Seq(
-      "io.circe" %% "circe-core" % V.circe,
-      "io.circe" %% "circe-generic" % V.circe,
-      "io.circe" %% "circe-parser" % V.circe,
-      "org.http4s" %% "http4s-core" % V.http4s % Test
+      "io.circe" %%% "circe-core" % V.circe,
+      "io.circe" %%% "circe-generic" % V.circe,
+      "io.circe" %%% "circe-parser" % V.circe,
+      "org.http4s" %%% "http4s-core" % V.http4s % Test
     )
   )
   .jvmPlatform(scalaVersions)
@@ -92,7 +92,7 @@ lazy val http4s = projectMatrix
   .settings(
     name := "scala-http-problem-http4s",
     libraryDependencies ++= Seq(
-      "org.http4s" %% "http4s-circe" % V.http4s
+      "org.http4s" %%% "http4s-circe" % V.http4s
     )
   )
   .jvmPlatform(scalaVersions)
@@ -106,7 +106,7 @@ lazy val tapir = projectMatrix
   .settings(
     name := "scala-http-problem-tapir",
     libraryDependencies ++= Seq(
-      "com.softwaremill.sttp.tapir" %% "tapir-json-circe" % V.tapir
+      "com.softwaremill.sttp.tapir" %%% "tapir-json-circe" % V.tapir
     )
   )
   .jvmPlatform(scalaVersions)
