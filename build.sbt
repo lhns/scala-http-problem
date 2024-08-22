@@ -68,7 +68,7 @@ lazy val root: Project =
     )
     .aggregate(core.projectRefs: _*)
     .aggregate(http4s.projectRefs: _*)
-    //.aggregate(tapir.projectRefs: _*)
+//.aggregate(tapir.projectRefs: _*)
 
 lazy val core = projectMatrix
   .in(file("core"))
@@ -78,7 +78,8 @@ lazy val core = projectMatrix
     libraryDependencies ++= Seq(
       "io.circe" %% "circe-core" % V.circe,
       "io.circe" %% "circe-generic" % V.circe,
-      "io.circe" %% "circe-parser" % V.circe
+      "io.circe" %% "circe-parser" % V.circe,
+      "org.http4s" %% "http4s-core" % V.http4s % Test
     )
   )
   .jvmPlatform(scalaVersions)
@@ -110,4 +111,4 @@ lazy val tapir = projectMatrix
   )
   .jvmPlatform(scalaVersions)
   .jsPlatform(scalaVersions)
-*/
+ */
