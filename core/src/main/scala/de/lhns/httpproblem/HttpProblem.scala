@@ -1,7 +1,7 @@
 package de.lhns.httpproblem
 
-import io.circe.{Codec, Decoder, Encoder, Json, JsonObject}
-import io.circe.generic.semiauto.deriveCodec
+import io.circe._
+import io.circe.generic.semiauto._
 import io.circe.syntax._
 
 import java.net.URI
