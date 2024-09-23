@@ -6,7 +6,7 @@ import io.circe.syntax._
 
 import java.net.URI
 
-case class HttpProblem(
+case class HttpProblem private (
     `type`: Option[URI],
     status: Option[Int],
     title: Option[String],
@@ -14,6 +14,8 @@ case class HttpProblem(
     instance: Option[String],
     extensions: Map[String, Json]
 ) {
+  final def tpe: Option[URI] = `type`
+
   final def withType(uri: URI): HttpProblem = copy(`type` = Some(uri))
 
   final def withType(uri: String): HttpProblem = copy(`type` = Some(URI.create(uri)))
@@ -63,21 +65,27 @@ case class HttpProblem(
 }
 
 object HttpProblem {
-  def apply(
-      `type`: String,
-      status: Option[Int] = None,
-      title: Option[String] = None,
-      detail: Option[String] = None,
-      instance: Option[String] = None,
-      extensions: Map[String, Json] = Map.empty
-  ): HttpProblem = HttpProblem(
-    `type` = Some(URI.create(`type`)),
-    status = status,
-    title = title,
-    detail = detail,
-    instance = instance,
-    extensions = extensions
+  val withoutType: HttpProblem = new HttpProblem(
+    `type` = None,
+    status = None,
+    title = None,
+    detail = None,
+    instance = None,
+    extensions = Map.empty
   )
+
+  def apply(tpe: URI): HttpProblem =
+    new HttpProblem(
+      `type` = Some(tpe),
+      status = None,
+      title = None,
+      detail = None,
+      instance = None,
+      extensions = Map.empty
+    )
+
+  def apply(tpe: String): HttpProblem =
+    HttpProblem(URI.create(tpe))
 
   implicit val codec: Codec[HttpProblem] = {
     val reserved: Set[String] = Set(

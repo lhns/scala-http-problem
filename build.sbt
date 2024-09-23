@@ -68,7 +68,7 @@ lazy val root: Project =
     )
     .aggregate(core.projectRefs: _*)
     .aggregate(http4s.projectRefs: _*)
-//.aggregate(tapir.projectRefs: _*)
+    .aggregate(tapir.projectRefs: _*)
 
 lazy val core = projectMatrix
   .in(file("core"))
@@ -98,7 +98,6 @@ lazy val http4s = projectMatrix
   .jvmPlatform(scalaVersions)
   .jsPlatform(scalaVersions)
 
-/*
 lazy val tapir = projectMatrix
   .in(file("tapir"))
   .dependsOn(core % "compile->compile;test->test")
@@ -106,9 +105,14 @@ lazy val tapir = projectMatrix
   .settings(
     name := "scala-http-problem-tapir",
     libraryDependencies ++= Seq(
-      "com.softwaremill.sttp.tapir" %%% "tapir-json-circe" % V.tapir
+      "com.softwaremill.sttp.tapir" %%% "tapir-json-circe" % V.tapir,
+      "com.softwaremill.sttp.tapir" %%% "tapir-openapi-docs" % V.tapir % Test
     )
   )
-  .jvmPlatform(scalaVersions)
+  .jvmPlatform(
+    scalaVersions,
+    libraryDependencies ++= Seq(
+      "com.softwaremill.sttp.apispec" %% "openapi-circe-yaml" % "0.11.3" % Test
+    )
+  )
   .jsPlatform(scalaVersions)
- */
