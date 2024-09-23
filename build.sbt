@@ -10,6 +10,7 @@ val V = new {
   val http4s = "0.23.27"
   val logbackClassic = "1.5.7"
   val munitCatsEffect = "2.0.0"
+  val sttpOpenapiCirceYaml = "0.11.3"
   val tapir = "1.10.15"
 }
 
@@ -112,7 +113,7 @@ lazy val tapir = projectMatrix
   .jvmPlatform(
     scalaVersions,
     libraryDependencies ++= Seq(
-      "com.softwaremill.sttp.apispec" %% "openapi-circe-yaml" % "0.11.3" % Test
+      "com.softwaremill.sttp.apispec" %% "openapi-circe-yaml" % V.sttpOpenapiCirceYaml % Test
     )
   )
   .jsPlatform(scalaVersions)
