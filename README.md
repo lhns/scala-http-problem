@@ -1,6 +1,6 @@
 # scala-http-problem
 
-HTTP Problem (RFC [7807](https://datatracker.ietf.org/doc/html/rfc7807)/[9457](https://datatracker.ietf.org/doc/html/rfc9457)) for scala/http4s/tapir
+HTTP Problem Details (RFC [7807](https://datatracker.ietf.org/doc/html/rfc7807)/[9457](https://datatracker.ietf.org/doc/html/rfc9457)) for scala/http4s/tapir
 
 ## License
 
