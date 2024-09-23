@@ -43,7 +43,7 @@ class TapirHttpProblemSuite extends FunSuite {
         |          content:
         |            application/json:
         |              schema:
-        |                $ref: '#/components/schemas/HttpProblemSurrogate'
+        |                $ref: '#/components/schemas/HttpProblem'
         |              examples:
         |                urn:problem:invalid-header:
         |                  summary: Problem Details with type urn:problem:invalid-header
@@ -55,7 +55,7 @@ class TapirHttpProblemSuite extends FunSuite {
         |          content:
         |            application/json:
         |              schema:
-        |                $ref: '#/components/schemas/HttpProblemSurrogate'
+        |                $ref: '#/components/schemas/HttpProblem'
         |              examples:
         |                Example:
         |                  summary: Problem Details with status code 500
@@ -63,8 +63,8 @@ class TapirHttpProblemSuite extends FunSuite {
         |                    status: 500
         |components:
         |  schemas:
-        |    HttpProblemSurrogate:
-        |      title: HttpProblemSurrogate
+        |    HttpProblem:
+        |      title: HttpProblem
         |      type: object
         |      properties:
         |        type:

@@ -3,23 +3,25 @@ package de.lhns.httpproblem.tapir
 import de.lhns.httpproblem.HttpProblem
 import sttp.model.StatusCode
 import sttp.tapir.EndpointIO.Example
+import sttp.tapir.Schema.SName
 import sttp.tapir.json.circe.jsonBody
 import sttp.tapir._
 
 import java.net.URI
 
 object json {
-  private case class HttpProblemSurrogate(
-      `type`: Option[URI],
-      status: Option[Int],
-      title: Option[String],
-      detail: Option[String],
-      instance: Option[String]
-  )
-
   implicit val httpProblemSchema: Schema[HttpProblem] = {
+    object Surrogate {
+      case class HttpProblem(
+          `type`: Option[URI],
+          status: Option[Int],
+          title: Option[String],
+          detail: Option[String],
+          instance: Option[String]
+      )
+    }
     implicit val uriSchema: Schema[URI] = Schema.string[URI].format("uri")
-    Schema.derived[HttpProblemSurrogate].as[HttpProblem]
+    Schema.derived[Surrogate.HttpProblem].as[HttpProblem]
   }
 
   private def httpProblemSummary(tpe: Option[URI], status: Option[Int]): String =
