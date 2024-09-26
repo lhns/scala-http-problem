@@ -1,11 +1,10 @@
 package de.lhns.httpproblem.tapir
 
 import de.lhns.httpproblem.HttpProblem
-import sttp.model.StatusCode
+import sttp.model.{MediaType, StatusCode}
 import sttp.tapir.EndpointIO.Example
-import sttp.tapir.Schema.SName
-import sttp.tapir.json.circe.jsonBody
 import sttp.tapir._
+import sttp.tapir.json.circe.circeCodec
 
 import java.net.URI
 
@@ -35,13 +34,23 @@ object json {
     summary = Some(httpProblemSummary(problem.tpe, problem.status))
   )
 
+  val ApplicationProblemJsonMediaType: MediaType = MediaType("application", "problem+json")
+
+  case class ProblemJsonCodecFormat() extends CodecFormat {
+    override val mediaType: MediaType = ApplicationProblemJsonMediaType
+  }
+
+  val problemJsonBody: EndpointIO.Body[String, HttpProblem] = {
+    stringBodyUtf8AnyFormat(circeCodec[HttpProblem].format(ProblemJsonCodecFormat()))
+  }
+
   def httpProblems(problems: HttpProblem*): EndpointOutput.OneOf[HttpProblem, HttpProblem] = {
     val variants = problems
       .groupBy(_.status.getOrElse(StatusCode.InternalServerError.code))
       .map { case (status, problems) =>
         oneOfVariantValueMatcher(
           StatusCode(status),
-          jsonBody[HttpProblem]
+          problemJsonBody
             .description(httpProblemSummary(None, Some(status)))
             .examples(problems.map(example).toList)
         ) {

@@ -41,7 +41,7 @@ class TapirHttpProblemSuite extends FunSuite {
         |        '400':
         |          description: Problem Details with status code 400
         |          content:
-        |            application/json:
+        |            application/problem+json:
         |              schema:
         |                $ref: '#/components/schemas/HttpProblem'
         |              examples:
@@ -53,7 +53,7 @@ class TapirHttpProblemSuite extends FunSuite {
         |        '500':
         |          description: Problem Details with status code 500
         |          content:
-        |            application/json:
+        |            application/problem+json:
         |              schema:
         |                $ref: '#/components/schemas/HttpProblem'
         |              examples:
