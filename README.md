@@ -13,7 +13,7 @@ HTTP Problem Details (RFC [7807](https://datatracker.ietf.org/doc/html/rfc7807)/
 ### build.sbt
 
 ```sbt
-libraryDependencies += "de.lhns" %% "scala-http-problem-core" % "0.1.3"
+libraryDependencies += "de.lhns" %% "scala-http-problem" % "0.1.3"
 libraryDependencies += "de.lhns" %% "scala-http-problem-http4s" % "0.1.3"
 libraryDependencies += "de.lhns" %% "scala-http-problem-tapir" % "0.1.3"
 ```
