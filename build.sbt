@@ -1,4 +1,4 @@
-lazy val scalaVersions = Seq("3.3.4", "2.13.14")
+lazy val scalaVersions = Seq("3.3.4", "2.13.15")
 
 ThisBuild / scalaVersion := scalaVersions.head
 ThisBuild / versionScheme := Some("early-semver")
@@ -6,12 +6,12 @@ ThisBuild / organization := "de.lhns"
 name := (core.projectRefs.head / name).value
 
 val V = new {
-  val circe = "0.14.9"
+  val circe = "0.14.10"
   val http4s = "0.23.30"
-  val logbackClassic = "1.5.7"
+  val logbackClassic = "1.5.16"
   val munitCatsEffect = "2.0.0"
-  val sttpOpenapiCirceYaml = "0.11.3"
-  val tapir = "1.10.15"
+  val sttpOpenapiCirceYaml = "0.11.5"
+  val tapir = "1.11.11"
 }
 
 lazy val commonSettings: SettingsDefinition = Def.settings(
