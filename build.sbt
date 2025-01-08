@@ -7,7 +7,7 @@ name := (core.projectRefs.head / name).value
 
 val V = new {
   val circe = "0.14.9"
-  val http4s = "0.23.27"
+  val http4s = "0.23.30"
   val logbackClassic = "1.5.7"
   val munitCatsEffect = "2.0.0"
   val sttpOpenapiCirceYaml = "0.11.3"
