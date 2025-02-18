@@ -11,7 +11,7 @@ val V = new {
   val logbackClassic = "1.5.16"
   val munitCatsEffect = "2.0.0"
   val sttpOpenapiCirceYaml = "0.11.5"
-  val tapir = "1.11.11"
+  val tapir = "1.11.15"
 }
 
 lazy val commonSettings: SettingsDefinition = Def.settings(
