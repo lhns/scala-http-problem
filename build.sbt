@@ -9,7 +9,7 @@ val V = new {
   val circe = "0.14.10"
   val http4s = "0.23.30"
   val logbackClassic = "1.5.16"
-  val munitCatsEffect = "2.0.0"
+  val munitCatsEffect = "2.1.0"
   val sttpOpenapiCirceYaml = "0.11.5"
   val tapir = "1.11.11"
 }
