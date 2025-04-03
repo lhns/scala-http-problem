@@ -44,18 +44,18 @@ object json {
     stringBodyUtf8AnyFormat(circeCodec[HttpProblem].format(ProblemJsonCodecFormat()))
   }
 
-  def httpProblems(problems: HttpProblem*): EndpointOutput.OneOf[HttpProblem, HttpProblem] = {
-    val variants = problems
+  def httpProblems(problemTemplates: HttpProblem*): EndpointOutput.OneOf[HttpProblem, HttpProblem] = {
+    val variants = problemTemplates
       .groupBy(_.status.getOrElse(StatusCode.InternalServerError.code))
-      .map { case (status, problems) =>
+      .map { case (status, problemStatusTemplates) =>
         oneOfVariantValueMatcher(
           StatusCode(status),
           problemJsonBody
             .description(httpProblemSummary(None, Some(status)))
-            .examples(problems.map(example).toList)
+            .examples(problemStatusTemplates.map(example).toList)
         ) {
           case problem: HttpProblem if problem.status.getOrElse(StatusCode.InternalServerError.code) == status =>
-            true
+            problemStatusTemplates.exists(_.isTemplateOf(problem))
         }
       }
       .toList

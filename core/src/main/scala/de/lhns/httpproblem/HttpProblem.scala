@@ -14,6 +14,7 @@ case class HttpProblem private (
     instance: Option[String],
     extensions: Map[String, Json]
 ) {
+  @inline
   final def tpe: Option[URI] = `type`
 
   final def withType(uri: URI): HttpProblem = copy(`type` = Some(uri))
@@ -47,6 +48,14 @@ case class HttpProblem private (
     copy(extensions = extensions + (key -> Encoder[A].apply(value)))
 
   final def withoutExtension(key: String): HttpProblem = copy(extensions = extensions - key)
+
+  final def isTemplateOf(problem: HttpProblem): Boolean =
+    tpe.forall(problem.tpe.contains) &&
+      status.forall(problem.status.contains) &&
+      title.forall(problem.title.contains) &&
+      detail.forall(problem.detail.contains) &&
+      instance.forall(problem.instance.contains) &&
+      extensions.forall { case (key, value) => problem.extensions.get(key).contains(value) }
 
   def errorMessage: String =
     (title.map(_ + `type`.fold("")(" (" + _ + ")")).toList ++
