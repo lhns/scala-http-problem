@@ -1,16 +1,17 @@
-lazy val scalaVersions = Seq("3.3.5", "2.13.16")
+lazy val scalaVersions = Seq("3.3.6", "2.13.16")
 
 ThisBuild / scalaVersion := scalaVersions.head
 ThisBuild / versionScheme := Some("early-semver")
 ThisBuild / organization := "de.lhns"
+ThisBuild / version := (core.projectRefs.head / version).value
 name := (core.projectRefs.head / name).value
 
 val V = new {
-  val circe = "0.14.12"
+  val circe = "0.14.14"
   val http4s = "0.23.30"
   val logbackClassic = "1.5.18"
   val munitCatsEffect = "2.1.0"
-  val sttpOpenapiCirceYaml = "0.11.7"
+  val sttpOpenapiCirceYaml = "0.11.9"
   val tapir = "1.11.34"
 }
 
@@ -47,7 +48,7 @@ lazy val commonSettings: SettingsDefinition = Def.settings(
   Compile / doc / sources := Seq.empty,
   publishMavenStyle := true,
   publishTo := sonatypePublishToBundle.value,
-  sonatypeCredentialHost := "s01.oss.sonatype.org",
+  sonatypeCredentialHost := Sonatype.sonatypeCentralHost,
   credentials ++= (for {
     username <- sys.env.get("SONATYPE_USERNAME")
     password <- sys.env.get("SONATYPE_PASSWORD")
