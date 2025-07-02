@@ -66,7 +66,7 @@ case class HttpProblem private (
   final def exception(cause: Option[Throwable] = None): HttpProblemException = HttpProblemException(this, cause)
 
   @inline
-  final def throwException(cause: Option[Throwable] = None): Unit = throw exception(cause)
+  final def throwException(cause: Option[Throwable] = None): Nothing = throw exception(cause)
 
   final def toJson: Json = (this: HttpProblem).asJson
 
