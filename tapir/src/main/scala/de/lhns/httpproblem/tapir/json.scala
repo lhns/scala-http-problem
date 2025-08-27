@@ -1,6 +1,7 @@
 package de.lhns.httpproblem.tapir
 
 import de.lhns.httpproblem.HttpProblem
+import org.log4s.getLogger
 import sttp.model.{MediaType, StatusCode}
 import sttp.tapir.EndpointIO.Example
 import sttp.tapir._
@@ -44,6 +45,8 @@ object json {
     stringBodyUtf8AnyFormat(circeCodec[HttpProblem].format(ProblemJsonCodecFormat()))
   }
 
+  private val logger = getLogger
+
   def httpProblems(problemTemplates: HttpProblem*): EndpointOutput.OneOf[HttpProblem, HttpProblem] = {
     val variants = problemTemplates
       .groupBy(_.status.getOrElse(StatusCode.InternalServerError.code))
@@ -60,9 +63,17 @@ object json {
       }
       .toList
 
+    val variantsOrDefault = variants :+ oneOfVariantValueMatcher[HttpProblem](
+      problemJsonBody
+        .description(httpProblemSummary(None, None))
+    ) { case problem: HttpProblem =>
+      logger.warn(s"Unhandled problem details: $problem")
+      true
+    }
+
     oneOf[HttpProblem](
-      variants.head,
-      variants.tail: _*
+      variantsOrDefault.head,
+      variantsOrDefault.tail: _*
     )
   }
 }
