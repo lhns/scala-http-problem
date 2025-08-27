@@ -9,6 +9,7 @@ name := (core.projectRefs.head / name).value
 val V = new {
   val circe = "0.14.14"
   val http4s = "0.23.30"
+  val log4s = "1.10.0"
   val logbackClassic = "1.5.18"
   val munitCatsEffect = "2.1.0"
   val sttpOpenapiCirceYaml = "0.11.10"
@@ -103,18 +104,21 @@ lazy val http4s = projectMatrix
 lazy val tapir = projectMatrix
   .in(file("tapir"))
   .dependsOn(core % "compile->compile;test->test")
+  .dependsOn(http4s % "test->compile")
   .settings(commonSettings)
   .settings(
     name := "scala-http-problem-tapir",
     libraryDependencies ++= Seq(
       "com.softwaremill.sttp.tapir" %%% "tapir-json-circe" % V.tapir,
-      "com.softwaremill.sttp.tapir" %%% "tapir-openapi-docs" % V.tapir % Test
+      "com.softwaremill.sttp.tapir" %%% "tapir-openapi-docs" % V.tapir % Test,
+      "org.log4s" %%% "log4s" % V.log4s
     )
   )
   .jvmPlatform(
     scalaVersions,
     libraryDependencies ++= Seq(
-      "com.softwaremill.sttp.apispec" %% "openapi-circe-yaml" % V.sttpOpenapiCirceYaml % Test
+      "com.softwaremill.sttp.apispec" %% "openapi-circe-yaml" % V.sttpOpenapiCirceYaml % Test,
+      "com.softwaremill.sttp.tapir" %% "tapir-http4s-server" % V.tapir % Test
     )
   )
   .jsPlatform(scalaVersions)
