@@ -7,7 +7,7 @@ ThisBuild / version := (core.projectRefs.head / version).value
 name := (core.projectRefs.head / name).value
 
 val V = new {
-  val circe = "0.14.14"
+  val circe = "0.14.15"
   val http4s = "0.23.33"
   val log4s = "1.10.0"
   val logbackClassic = "1.5.32"
