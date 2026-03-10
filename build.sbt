@@ -11,7 +11,7 @@ val V = new {
   val http4s = "0.23.33"
   val log4s = "1.10.0"
   val logbackClassic = "1.5.32"
-  val munitCatsEffect = "2.1.0"
+  val munitCatsEffect = "2.2.0"
   val sttpOpenapiCirceYaml = "0.11.10"
   val tapir = "1.11.42"
 }
