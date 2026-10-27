@@ -12,7 +12,7 @@ val V = new {
   val log4s = "1.10.0"
   val logbackClassic = "1.5.32"
   val munitCatsEffect = "2.1.0"
-  val sttpOpenapiCirceYaml = "0.11.10"
+  val sttpOpenapiCirceYaml = "0.12.1"
   val tapir = "1.11.42"
 }
 
